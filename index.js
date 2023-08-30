@@ -1,30 +1,42 @@
-const express = require("express");
+const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 
 const validUser = {
-  email: "john@doe.com",
-  password: "changeme",
+  email: 'john@doe.com',
+  password: 'changeme',
 };
 
-app.set("view engine", "pug");
+app.set('view engine', 'pug');
 
 app.use(express.urlencoded());
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.use(express.static('public'));
+
+app.use(bodyParser.json());
+
+app.get('/', (req, res) => {
+  res.render('index');
 });
 
-app.post("/login", (req, res) => {
+app.post('/login', (req, res) => {
   if (
     req.body.email === validUser.email &&
     req.body.password === validUser.password
   ) {
-    res.send("yup");
+    res.send('yup');
   } else {
-    res.send("nope");
+    res.send('nope');
   }
 });
 
+app.post('/new-login', (req, res) => {
+  console.log('req:', req);
+  res.json({
+    status: 'success',
+  });
+});
+
 app.listen(3000, () => {
-  console.log("express is running on port 3000");
+  console.log('express is running on port 3000');
 });
