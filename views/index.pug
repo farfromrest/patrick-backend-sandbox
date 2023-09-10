@@ -1,12 +1,17 @@
 html 
   head 
     title Express Test
+    link(rel="stylesheet", href="styles.css")
   body
     form(action='/login', method='post')
-      label Email
-      input(type='email', name='email')
-      label Password
-      input(type='password', name='password')
-
-      button(type='submit') Login
+      p.form__title Welcome to Express Test
+      div.field
+        label 
+          input(type='email', name='email', placeholder=' ')
+          span.label__inner Email
+      div.field
+        label
+          input(type='password', name='password', placeholder=' ')
+          span.label__inner Password
+      button.form__submit(type='submit') Login
     script(src='main.js')

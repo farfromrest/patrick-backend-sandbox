@@ -1,5 +1,7 @@
+const fs = require('node:fs');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 const validUser = {
@@ -15,7 +17,10 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
+app.use(cookieParser());
+
 app.get('/', (req, res) => {
+  console.log('cookies:', req.cookies);
   res.render('index');
 });
 
@@ -32,6 +37,7 @@ app.post('/login', (req, res) => {
 
 app.post('/new-login', (req, res) => {
   console.log('req:', req);
+  res.cookie('user', '1', { maxAge: 900000, httpOnly: true });
   res.json({
     status: 'success',
   });
